@@ -8,11 +8,10 @@ steps:
 # replaced by Cloud Build.
 #   - 'gcr.io/$PROJECT_ID/test-worker:$COMMIT_SHA'
 - name: 'gcr.io/cloud-builders/docker'
-  id: Docker Build
   args:
   - 'build'
   - '-t'
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo:$COMMIT_SHA'
+  - 'amresh-image'
   - '.'
   
   
@@ -21,7 +20,6 @@ steps:
 # replaced by Cloud Build.
 #   - 'gcr.io/$PROJECT_ID/test-worker:$COMMIT_SHA'
 - name: 'gcr.io/cloud-builders/docker'
-  id: Docker Push
   args:
   - 'push'
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo:$COMMIT_SHA'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/amresh-image'
