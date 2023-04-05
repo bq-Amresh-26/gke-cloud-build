@@ -1,0 +1,27 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args: ['gcloud', 'config', 'set', 'project', 'project-id']
+  
+  
+# This step Build the docker image
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+#   - 'gcr.io/$PROJECT_ID/test-worker:$COMMIT_SHA'
+- name: 'gcr.io/cloud-builders/docker'
+  id: Docker Build
+  args:
+  - 'build'
+  - '-t'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo:$COMMIT_SHA'
+  - '.'
+  
+  
+# This step pushes the image to Container Registry
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+#   - 'gcr.io/$PROJECT_ID/test-worker:$COMMIT_SHA'
+- name: 'gcr.io/cloud-builders/docker'
+  id: Docker Push
+  args:
+  - 'push'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo:$COMMIT_SHA'
